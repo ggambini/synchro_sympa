@@ -1,10 +1,11 @@
 # mycore_sympa
-Bash script to sync ownCloud users and sympa mailling list.
 
+Bash script to sync ownCloud users and sympa mailling list. Sync is bidirectionnal, can subscribe and unsubscribe owncloud's users in a sympa mailling list. There are a lock mecanism usefull for large owncloud installation.
 
 ## Usage
 
-
+Typically, install this script on your PHP node. Script need to contact mysql server and sympa server. On a PHP node, check if sympa dump URL is accessible :
+wget https://<sympa_url>/wws/dump/<my_list>/light
 
 ## License and Author
 
