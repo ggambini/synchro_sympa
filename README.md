@@ -8,9 +8,11 @@ Typically, install this script on your PHP node. Script need to contact mysql se
 
 wget https://\<sympa_url\>/wws/dump/\<my_list\>/light -O /tmp/test
 
-On sympa server side, you need to allow PHP node's subnet :
+On sympa server side, You need to allow owner to make subscribe/unsubscrive without auth and you need to allow PHP node's subnet :
 
 match([remote_addr],/\<php-node_subnet\>/)    smtp,smime,md5  -> do_it
+
+Lock file location and log file location must be on a shared filesystem if you want cron's redundancy.
 
 ## License and Author
 
