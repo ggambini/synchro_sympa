@@ -5,7 +5,7 @@ Bash script to sync ownCloud users and sympa mailling list. Sync is bidirectionn
 ## Usage
 
 Typically, install this script on your PHP node. Script need to contact mysql server and sympa server. On a PHP node, check if sympa dump URL is accessible :
-wget https://<sympa_url>/wws/dump/<my_list>/light
+wget https://\<sympa_url\>/wws/dump/<my_list>/light
 
 ## License and Author
 
