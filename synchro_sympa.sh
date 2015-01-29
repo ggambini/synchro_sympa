@@ -17,12 +17,15 @@
 	MYSQL_USER="<owncloud_mysql-user>"
 	MYSQL_PASS="<owncloud_mysql-pass>"
 	MYSQL_FILE="owncloud_mysql.dump"
+	MYSQL_SELECT="SELECT uid FROM oc_user_gtu_validations;"
 
 	# Autres
 	ADD_FILE="add_file.txt"
 	DEL_FILE="del_file.txt"
 	LOG_FILE="synchro_sympa.log"
+	LOG_HOSTNAME=`/bin/hostname`
 	LOCK_FILE="synchro_sympa.lock"
+	
 
 #
 # Functions
@@ -40,8 +43,13 @@
 
 	function writeLog {
 		message=$1
-		now=`date +%d/%m/%y-%H:%M:%S`
-		echo "$now - $message" >> $LOG_FILE
+		if [[ $LOG_FILE == "syslog" ]]
+		then
+			/usr/bin/logger $message
+		else
+			now=`date +%d/%m/%y-%H:%M:%S`
+			echo "$now - $message" >> $LOG_FILE
+		fi
 	}
 
 #
@@ -77,7 +85,7 @@
 
 
 # SELECT users dans la base
-        /usr/bin/mysql -h ${MYSQL_HOST} -P ${MYSQL_PORT} -u ${MYSQL_USER} --password=${MYSQL_PASS} ${MYSQL_BASE} -s -e "SELECT uid FROM oc_user_gtu_validations;" > ${MYSQL_FILE}
+        /usr/bin/mysql -h ${MYSQL_HOST} -P ${MYSQL_PORT} -u ${MYSQL_USER} --password=${MYSQL_PASS} ${MYSQL_BASE} -s -e "${MYSQL_SELECT}" > ${MYSQL_FILE}
 	if [[ $? -ge "1" ]]
         then
                 # Cmd fail
@@ -183,6 +191,6 @@
 #Quit
 	END_DATE=`/bin/date +%s`
 	EXEC_TIME=`expr $END_DATE - $START_DATE`
-	writeLog "OK : Add ${NB_ADD} address / delete ${NB_DEL} address / ${EXEC_TIME} seconds"
+	writeLog "OK : Add ${NB_ADD} address / delete ${NB_DEL} address / ${EXEC_TIME} seconds on $LOG_HOSTNAME"
 	removeLock
 
