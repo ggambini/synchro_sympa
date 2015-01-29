@@ -12,7 +12,7 @@ On sympa server side, You need to allow owner to make subscribe/unsubscrive with
 
 match([remote_addr],/\<php-node_subnet\>/)    smtp,smime,md5  -> do_it
 
-Lock file location and log file location must be on a shared filesystem if you want cron's redundancy.
+Lock_file location must be on a shared filesystem if you want cron's redundancy. Leave log_file empty to use syslog, then if you have multiple PHP node, you can use a centralized logging service like syslog-ng.
 
 ## License and Author
 

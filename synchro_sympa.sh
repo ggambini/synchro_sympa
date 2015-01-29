@@ -22,6 +22,7 @@
 	# Autres
 	ADD_FILE="add_file.txt"
 	DEL_FILE="del_file.txt"
+	# Log_file vide = syslog
 	LOG_FILE="synchro_sympa.log"
 	LOG_HOSTNAME=`/bin/hostname`
 	LOCK_FILE="synchro_sympa.lock"
@@ -43,12 +44,12 @@
 
 	function writeLog {
 		message=$1
-		if [[ $LOG_FILE == "syslog" ]]
+		if [[ "$LOG_FILE" != "" ]]
 		then
-			/usr/bin/logger $message
-		else
 			now=`date +%d/%m/%y-%H:%M:%S`
-			echo "$now - $message" >> $LOG_FILE
+                        echo "$now - $message" >> $LOG_FILE
+		else
+			/usr/bin/logger $message
 		fi
 	}
 
