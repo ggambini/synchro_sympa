@@ -1,6 +1,8 @@
-# mycore_sympa
+# Synchro_sympa
 
-Bash script to sync ownCloud users and sympa mailling list. Sync is bidirectionnal, can subscribe and unsubscribe owncloud's users in a sympa mailling list. There are a lock mecanism, usefull for large owncloud installation.
+Bash script to sync mails from a mysql table and sympa list. Sync is bidirectionnal, can subscribe and unsubscribe website's users in a mailling list. There are a lock mecanism and syslog method, usefull for large installation.
+
+This script use a MySQL request to extract mail address of your website's users. 
 
 ## Usage
 
